@@ -5,7 +5,8 @@ Steps :
 1) go to your projet folder
 2) run "ng build --prod"
     if every thing is fine and project dependency is clear and all angular CLI installed and working find 
-    then "dist" folder will be created and copy this "dist" folder to apache-tomcat\webapps\ folder and up the tomcat then open browser
+    then "dist" folder will be created and copy this "dist" folder to apache-tomcat\webapps\ folder 
+          then change <base href='.'> in index.html and up the tomcat then open browser
           and type http:\\[ip:port]\dist\index.html
     else if you find this issue 
         ng-serve is not working - Could not find module "@angular-devkit/build-angular"
