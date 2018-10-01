@@ -1,0 +1,24 @@
+In order to deploy angular6 projet in tomcat server, we must perform following steps.
+Initialy I am facing few proble while building app with angular CLI, so I also mentiond those in this document.
+
+Steps :
+1) go to your projet folder
+2) run "ng build --prod"
+    if every thing is fine and project dependency is clear and all angular CLI installed and working find 
+    then "dist" folder will be created and copy this "dist" folder to apache-tomcat\webapps\ folder and up the tomcat then open browser
+          and type http:\\[ip:port]\dist\index.html
+    else if you find this issue 
+        ng-serve is not working - Could not find module "@angular-devkit/build-angular"
+    then 
+        Install @angular-devkit/build-angular as dev dependency. This package is newly introduced in Angular 6.0
+
+        npm install --save-dev @angular-devkit/build-angular
+        or,
+        yarn add @angular-devkit/build-angular --dev
+        
+    else if you find this issue
+        You seem to not be depending on "@angular/core" and/or "rxjs". This is an error.
+    then   
+       run "npm link"
+    
+    
