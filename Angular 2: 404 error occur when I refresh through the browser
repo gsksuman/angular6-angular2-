@@ -1,0 +1,65 @@
+-----------------------------------------solution-1---------------------------------------------------------------------
+in fact, it's normal that you have a 404 error when refreshing your application since the actual address within the browser is updating (and without # / hashbang approach). By default, HTML5 history is used for reusing in Angular2.
+
+To fix the 404 error, you need to update your server to serve the index.html file for each route path you defined.
+
+If you want to switch to the HashBang approach, you need to use this configuration:
+
+import {bootstrap} from 'angular2/platform/browser';
+import {provide} from 'angular2/core';
+import {ROUTER_PROVIDERS} from 'angular2/router';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
+import {MyApp} from './myapp';
+
+bootstrap(MyApp, [
+  ROUTER_PROVIDERS,
+  {provide: LocationStrategy, useClass: HashLocationStrategy}
+]);
+In this case, when you refresh the page, it will be displayed again (but you will have a # in your address).
+
+-------------------------------------Solution-2-------------------------------------------------------------------------
+
+Update for Angular 2 final version
+In app.module.ts:
+
+Add imports:
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+And in NgModule provider, add:
+
+{provide: LocationStrategy, useClass: HashLocationStrategy}
+Example (app.module.ts):
+
+import { NgModule }       from '@angular/core';
+import { BrowserModule  } from '@angular/platform-browser';
+import { AppComponent }   from './app.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+@NgModule({
+    declarations: [AppComponent],
+    imports: [BrowserModule],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+    bootstrap: [AppComponent],
+})
+export class AppModule {}
+Alternative
+Use RouterModule.forRoot with the {useHash: true} argument.
+
+Example:(from angular docs)
+
+import { NgModule } from '@angular/core';
+...
+
+const routes: Routes = [//routes in here];
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(routes, { useHash: true })
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
